@@ -20,10 +20,10 @@ def trier():
 
     for i in range(len(c)):
        if c[i].startswith("+2376"):#si le nombre commence par +2376 alors on ajoute dans data les chiffres qui suit
-          data.append(int(c[i][4:]))
+          data.append(int(c[i][5:]))
 
        elif c[i].startswith("2376"):#meme logique que le if precedent
-          data.append(int(c[i][3:]))
+          data.append(int(c[i][4:]))
        elif c[i].startswith("6"):
           data.append(int(c[i][1:]))
        else:

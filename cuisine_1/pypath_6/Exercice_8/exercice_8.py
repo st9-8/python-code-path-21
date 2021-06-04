@@ -9,18 +9,21 @@ for i in range(len(alphabet1)):
 def encryptage():
   message=input("Entrer votre message\n")
   decale=input("Entrer le decalage, on notera - signifie vers la gauche et positif pour la droite")
-  try:
+  try:### verifie si la valeur entree est bien un entier
       decale=int(decale)
   except:
-       pass
+       while decale.isdecimal() == False:
+           decale= input("veillez entrer un entier")
+       decale = int(decale)
 
   def coder(lettre,alphabet1,decale):
-    for i in range(len(alphabet1)):
+      decale =decale % 26
+      for i in range(len(alphabet1)):
         if lettre==" ":
             return " "
         elif alphabet[i]== lettre:
             return str(alphabet1[i+decale])
-    return "?"
+      return "?"
   message_coder=str()
   for lettre in message:
     message_coder+=coder(lettre,alphabet1,decale)

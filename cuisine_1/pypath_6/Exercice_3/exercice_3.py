@@ -2,7 +2,9 @@ import random
 
 def ch_aleatoire(list):###fonction qui choisit aleatoirement un element dans une liste
     return random.choice(list)
+
 ans = ["pierre","feuille","ciseau"]
+
 def Menu():
     print("1-pierre\n"
           "2-feuille\n"
@@ -15,8 +17,12 @@ def Menu():
         else:
           return choix
     except:
-        print("la vie ce n'est pas le piege")
-        print("veillez entrer un chiffre compris entre 1 et 3")
+        while choix not in "123":
+            print("la vie ce n'est pas le piege")
+            choix = input("veillez entrer un chiffre compris entre 1 et 3\t")
+        choix = int(choix)
+        return choix
+
 point = [0,0]###liste des points position 0 point du joueur ,position 1 point de l'ordi
 
 def quit(b,n):##fonction quitter
@@ -54,7 +60,7 @@ while quitter == False:
         print("joueur1 a {} points et l'ordi {} points".format(point[0], point[1]))
 
         b=input("voulez-vous quitter\n,1-oui \t 2-non")
-        while b != "1" and  b != "2":#test si la personne entre bien 1 ou 2
+        while b != "1" and b != "2":#test si la personne entre bien 1 ou 2
             b=input ("Entrer 1 ou 2")
         b=int(b)
         if b == 1:
