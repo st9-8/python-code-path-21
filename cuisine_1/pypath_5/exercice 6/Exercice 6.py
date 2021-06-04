@@ -6,11 +6,13 @@ def decorateur(fonction):
         nouvel_liste = []
         for numero in ma_liste:
             nouvel_liste.append("+237 6"+numero)
+        
     
         with open("data6.txt",'w') as fichier:
             for numero in nouvel_liste:
                 fichier.write(numero + "\n")
-           
+
+              
             
     return decore
 
@@ -44,7 +46,7 @@ def trier(liste):
 
    
 
-# dans le bloc qui suit, on recupere les donnees du fichier (les numeros de telephone qui sont le fichier) dans une liste puis on appelle la fonction trier avec
+# Dans le bloc qui suit, on recupere les donnees du fichier (les numeros de telephone qui sont le fichier) dans une liste puis on appelle la fonction trier avec
 
 try:
     f = open("E:\python-code-path\cuisines\exercice 6\data_exo_6.txt", encoding = "utf_8")
