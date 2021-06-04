@@ -1,0 +1,25 @@
+
+@deco
+def tp():
+    try:
+        global dicto
+        dicto =toDict()
+        x=0
+        while(x!=8):
+            print("\n\nLes colonnes sont :")
+            ecrire(dicto)
+            valeur= input("Quelle colonne voulez vous traiter? Bien vouloir ecrire le nom en toutes lettres\n")
+            x=dicto[valeur]+1
+            try:
+                while(x!=13): #tant qu'il ne veut pas quitter
+                    tl=creerliste(x)
+                    print(choix(tl,valeur,dicto))
+                
+            except KeyboardInterrupt:
+                print("Entrer 13 pour quitter") 
+                continue
+    except KeyboardInterrupt:
+        print("Entrer 13 pour quitter")  
+    else:
+        return("Fin")
+    
