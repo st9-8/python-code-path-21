@@ -1,3 +1,9 @@
+def deco(funct): #decorateur
+    liste=funct()
+    for elt in liste:
+        print("+237 6",elt,sep="")
+
+@deco
 def numeros():
     with open("data_exo_6.txt", 'r') as file:
             lignes=file.readlines()
