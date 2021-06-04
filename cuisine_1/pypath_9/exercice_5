@@ -1,0 +1,4 @@
+def cuboide(x,y,z,n):
+    x=[elt for elt in range(x+1)] #liste de 0 a x
+    y=[elt for elt in range(y+1)]
+    z=[elt for elt in range(z+1)]
