@@ -1,0 +1,26 @@
+def decorateur(fonction_style):
+        @wraps(fonction_style)
+        def fonction_decoree(*args, **kwargs):
+            resultat = fonction_style(*args, **kwargs)
+            s=str(resultat)
+            try:
+                if (kwargs['g'] ): #teste si g est vrai
+                    s="*"+s+"*"
+                if (kwargs['i'] ): #teste si i est vrai
+                        s="_"+s+"_"
+                if (kwargs['b'] ): #teste si b est vrai
+                        s="~"+s+"~"
+            except KeyError: #si un argument manque
+                try:
+                    if (kwargs['i'] ): #teste les autres
+                        s="_"+s+"_"
+                    if (kwargs['b'] ):
+                            s="~"+s+"~"
+                except KeyError: # au cas ou l'un manque encore
+                    try:
+                        if (kwargs['b'] ): #tes
+                            s="~"+s+"~"
+                    except KeyError:
+                        pass   
+            return s # retourne le texte decore
+        return fonction_decoree
