@@ -7,3 +7,17 @@ def PierreFeuilleCiseau():
     flag= flag or (choixJoueur== "Ciseau" and choixJeu=="Feuille") # renvoie true si le deuxieme cas de reussite fonctionne
     flag= flag or (choixJoueur== "Feuille" and choixJeu=="Pierre") # renvoie true si le troisieme cas de reussite fonctionne
     print("Mon choix ",choixJeu)
+    
+    def Jeu():
+    score=0
+    jouer="O" # jeu en cours
+    while(jouer=="O"):
+        if(PierreFeuilleCiseau()):
+            score=score+1
+            print("Gagne")
+        else:
+            print("Perdu")
+        jouer=input("Voulez-vous continuer? O ou N\n")
+    print("Votre score est",score)
+        
+Jeu()     
