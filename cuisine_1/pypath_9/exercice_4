@@ -1,4 +1,9 @@
-def decorateur(fonction_style):
+#Exercice 4
+from functools import wraps # Le module qui decore une focntion en la conservant
+
+
+def affichage():
+    def decorateur(fonction_style):
         @wraps(fonction_style)
         def fonction_decoree(*args, **kwargs):
             resultat = fonction_style(*args, **kwargs)
@@ -24,3 +29,12 @@ def decorateur(fonction_style):
                         pass   
             return s # retourne le texte decore
         return fonction_decoree
+    return decorateur
+
+
+@affichage()
+def style(text, g=False, i=False, b=False):
+    return text
+
+print(style("the",b=True,g=True))
+input()
