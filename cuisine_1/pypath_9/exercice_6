@@ -1,0 +1,15 @@
+def numeros():
+    with open("data_exo_6.txt", 'r') as file:
+            lignes=file.readlines()
+            del(lignes[0]) #premiere ligne inutile
+            liste=[]
+            for ligne in lignes:
+                x=list(ligne.strip("\n")) #creer une lsite sans espaces
+                x=x[-8:] #prendre seulement les 8 derniers chifffres
+                num="".join(x) #convertir la liste en string
+                liste.append(num)
+            liste=sorted(liste)
+            return liste
+
+
+input(" ")
