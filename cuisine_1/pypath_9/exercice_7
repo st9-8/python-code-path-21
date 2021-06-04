@@ -1,4 +1,295 @@
+import platform
+import sys
+import inspect
+import time
+import getpass
 
+saved= False
+def deco(func):
+    print("Bienvenu",end=" ")
+    print(getpass.getuser())
+    print("Statista tourne sur " ,end="")
+    print(platform.system())
+    return func
+   
+
+def nouveau():
+    val = input("Entrez votre age: ")
+    print (type(val))
+    stri=val+"\t|"
+    val = input("Votre salaire ")
+    stri=stri+val+"\t\t|"
+    val = input("Combien d'annees d'experience ")
+    stri=stri+val+"\t\t|"
+    val = input("Combien de projets realises? ")
+    stri=stri+val+"\t\t|"
+    val = input("Dans combien d'entreprises avez vous travaille precedemment?")
+    stri=stri+val+"\t\n"
+
+    print(stri)
+
+    with open("dev.txt", 'a') as file:
+        file.write(stri)
+        
+def Moyenne(liste):
+    try:
+        n = sum(liste)/len(liste)
+    except ZeroDivisionError:
+        print("Liste vide")
+    else:    
+        return n
+
+
+def Mediane(l):
+   
+    l_len = len(l)
+    if l_len < 1:
+        return None
+    if l_len % 2 == 0 :
+        return  (l[int((l_len-1)/2)] + l[int((l_len+1)/2)] ) / 2.0
+    else:
+        return l[int((l_len-1)/2)]
+
+def effectifs_cumul_croissant(liste): #effectif cumule
+    liste_croissant = sorted(liste)
+    precedent = liste_croissant[0]
+    cumuls = []
+    liste_croissant_sans_doublon = []
+    somme_partielle = 0
+    for x in liste_croissant:
+        if x != precedent:
+            cumuls.append(somme_partielle)
+            liste_croissant_sans_doublon.append(x)
+            precedent = x
+        somme_partielle += 1
+    cumuls.append(somme_partielle)
+    liste_croissant_sans_doublon.append(x)
+    return [liste_croissant_sans_doublon, cumuls]
+
+def effectifs(liste_cumuls): #calcul l'effectif
+    L = []   
+    cumulpreced = 0
+    for cumul in liste_cumuls:
+        L.append(cumul - cumulpreced)
+        cumulpreced = cumul
+    return L 
+
+def calcule_frequences(liste_effectifs) :# calcul la frequence
+    # calcul de l'effectif total
+    s = 0
+    for x in liste_effectifs :
+        s += x
+    # liste des fréquences
+    L = []
+    for x in liste_effectifs:
+        L.append(x/s)
+    return L
+
+def frequences_cumules(liste): #calcul frequences cumules
+    L=[]
+    somme=0
+    for elt in liste:
+        somme += elt
+        L.append(somme)
+    return L
+
+def Maximum(l):
+    
+    return l[len(l)-1]
+
+def Minimum(l):
+    return l[0]
+
+
+def Mode(l):
+    l_len = len(l)
+    temp=1
+    dico={}
+    for i in range(l_len-1):
+        if(l[i]==l[i+1]):
+            temp= temp+1
+        else:
+            dico[l[i]]=temp
+    if(l[l_len-1]== l[l_len-2]):
+        dico[l[l_len-2]]=temp+1
+    else:
+        dico[l[l_len-1]]=1
+            
+    dico=sorted(dico.items(), key=lambda item: item[1]) #trier lle ductionnaire selon les valeurs
+    i=len(dico)-1
+    max=[dico[i][0]]
+    temp=dico[i][1]
+    while(dico[i-1][1]==temp and i>0):
+        max.append(dico[i-1][0])
+        i= i-1
+        
+    return max
+
+def Quartile(liste,n):
+    x=len(liste)
+    if x%4 == 0:
+        return n*x//4-1
+    else:
+        return n*x//4
+    
+def sigma(liste): #calcule de la variance
+    var=0
+    moy=Moyenne(liste)
+    for i in range(len(liste)):
+        var=var+(liste[i]-m)**2
+    var=var/i
+    return var
+    
+def save(): #Sauvegarder tous
+    global saved
+    saved= True
+    s="Colonne\t\t"
+    for key in dicto.keys():
+        s=s+key+"\t\t" 
+    s=s+"\n"
+    valeur=[["Moyenne","Mediane","Maximum","Minimum","Mode"]]
+    for key in dicto.keys():
+        liste=creerliste(dicto[key]+1)
+        valeur.append([str(Moyenne(liste)),str(Mediane(liste)),str(Maximum(liste)),str(Minimum(liste)),str(Mode(liste))])
+    try:
+        with open("tous.txt",'a') as tous: #ouvrir en ajout
+            tous.write(s)
+            for i in range(len(valeur[0])):
+                s=""
+                for elt in valeur:
+                    s=s+str(elt[i])+"\t\t"
+                s=s+"\n"
+                tous.write(s)
+    except IOError:
+        print ("Fichier introuvable")
+        time.sleep(5)
+        sys.exit()
+    else:
+        pass
+    saved = True #pour la fonction quitter
+    print(" Sauvegarde Effectuee")
+    
+
+
+def choix(liste,valeur,dicto):
+    val= input("\n\nQuelle operation voulez vous effectuer? \n 1: Calculer la moyenne\n 2: Calculer la médiane \n 3: Calculer le maximum \n 4: Calculer le minimum \n 5: Calculer le mode\n 6: Calculer le premier quartile\n 7:Calculer le troisieme quartile\n 8: Calculer la variance\n 9:Calculer l\'ecart type\n 10: Tableau de frequence \n 11: Sauvegarder tous \n 12: Afficher tous \n 13:Quitter \n")
+    val=int(val)
+    
+    if (val == 1):
+         return "Moyenne de  la colonne {} := {}".format(valeur,Moyenne(liste))
+    
+    elif (val== 2):
+         return "Mediane de  la colonne {} := {}".format(valeur,Mediane(liste))
+      
+        
+    elif (val==3):
+         return "Maximum de  la colonne {} := {}".format(valeur,Maximum(liste))
+        
+    elif (val==4):
+         return "Minimum de  la colonne {} := {}".format(valeur,Minimum(liste))
+           
+        
+    elif (val== 5):
+         return "Mode de  la colonne {} := {}".format(valeur,Mode(liste))
+        
+   # elif(val==6):
+     #   nouveau()
+    elif (val==6):
+        return "Premier Quartile de  la colonne {} := {}".format(valeur,Quartile(liste,1))
+    
+    elif (val==7):
+        return "Troisieme Quartile de  la colonne {} := {}".format(valeur,Quartile(liste,3))
+         
+    elif (val== 8):
+         return " Variance de  la colonne {} := {}".format(valeur,sigma(liste))
+        
+    elif (val== 9):
+         return "Ecart type de  la colonne {} := {}".format(valeur,sigma(liste)**(0.5))
+        
+    elif (val==10):
+        L=[["Valeur"],["Effectif Cumule"],["Effectif"],["Frequence"],["Frequence Cumule"]]
+        y=effectifs_cumul_croissant(liste)
+        y.append(effectifs(y[1]))
+        y.append(calcule_frequences(y[2]))
+        y.append(frequences_cumules(y[3]))
+        for i in range(5):
+             L[i]=L[i]+y[i]
+        for val in L:
+                for elt in val:
+                    if type(elt)!=float:
+                        print(elt,end='\t')
+                    else:
+                        print("%.3f "%elt,end="\t")
+                print()
+        
+    elif(val==11):
+        return save()
+               
+        
+    elif(val==12):
+        
+        with open("tous.txt",'r') as tous:
+            y=[]
+            lignes=tous.readlines()
+            for ligne in lignes:
+                x=ligne.strip("\n ").split("\t\t")
+                y.append(x)
+            for val in y:
+                for elt in val:
+                    print(elt,end="\t\t\ ")
+                print()
+        return("Reussi") 
+        
+    elif(val==13):
+        if (saved == False): # si pas encore sauvegarde
+            save()
+        time.sleep(3)
+        print("Aurevoir")
+        sys.exit() 
+            
+    else:
+    
+        print("Erreur")
+
+def creerliste(i): #creer une liste de valeurs a traiter
+    try:
+        with open("data_exo_7.txt", 'r') as file:
+            lignes=file.readlines()
+            
+    except IOError:
+        print ("Fichier introuvable")
+        time.sleep(5)
+        sys.exit()
+    else:
+        del(lignes[0]) #enlever l'entete
+        liste=[]
+        for ligne in lignes:
+            x=ligne.strip("\n").split("\t")
+            liste.append(int(x[i-1]))
+        l = sorted(liste)
+        
+        return l
+    
+def ecrire(l): #pour afficher le dictionnaire
+    for elt,i in l.items():
+        print( i+1," : " ,elt) 
+
+def toDict(): #creer un dictionnaire a partir de l'entete
+    try:
+        with open("data_exo_7.txt", 'r',encoding="utf-8-sig") as file:
+            lignes=file.readlines()
+            
+    except IOError:
+        print ("Fichier introuvable")
+        time.sleep(5)
+        sys.exit()
+    else:
+        x=lignes[0].strip("\n").split('\t')
+        dicto={}
+        for i in range(len(x)):
+            dicto[x[i]]=i
+        return dicto
+        
 @deco
 def tp():
     try:
