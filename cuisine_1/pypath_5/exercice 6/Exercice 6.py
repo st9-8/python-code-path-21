@@ -10,7 +10,7 @@ def decorateur(fonction):
         with open("data6.txt",'w') as fichier:
             for numero in nouvel_liste:
                 fichier.write(numero + "\n")
-# decore
+
               
             
     return decore
