@@ -1,6 +1,8 @@
 def decorateur(fonction):
+    
     """ cette fonction permet d'effectuer la mise en forme sur les numeros de telelphone \
     trier ie ajouter le prefixe +237 6 au numero xxxxxxxx puis met le resultat dans un fichier text"""
+
     def decore(liste):
         ma_liste = fonction(liste)
         nouvel_liste = []
