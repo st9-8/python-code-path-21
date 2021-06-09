@@ -120,18 +120,23 @@ def tableauFE(liste):
 
 
 def sauvegarder():
+    def sauvegarder():
     f = open("resultat.txt",'w', encoding = 'utf-8')
-    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode"}:
+    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode",'variance','ecart_type','tableau des effectifs et frequences cumulés'}:
     
-    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\n")
+    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\t\tVariance\t\tEcart_type\t\tTableau des effectifs et frequences cumulés")
     
     moye = str(moy(liste))
     med = str(median(liste))
     maxi = str(max(liste))
     mini = str(min(liste))
     mod = str(mode(liste))
+    var=str(variance(liste))
+    ecartT=str(ecart_type(liste))
+    tab=tableauFE(liste)
     
-    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod)
+    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod+ "\t\t" + var + "\t\t" + ecartT + "\t\t" +tab )
+    
     
        
    
