@@ -1,0 +1,10 @@
+#Exercice 5
+def cuboide(x,y,z,n):
+    x=[elt for elt in range(x+1)] #liste de 0 a x
+    y=[elt for elt in range(y+1)]
+    z=[elt for elt in range(z+1)]
+    liste=[[i,j,k] for i in x for j in y for k in z] # triplets de valeurs
+    print(list(filter(lambda x : sum(x) != n, liste))) #filtrer ceux  differents de n
+    
+cuboide(1,1,2,3)
+

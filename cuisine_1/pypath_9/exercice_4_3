@@ -1,0 +1,57 @@
+#Partie 3
+
+from random import choice
+
+def mot(): # choix aleatoire dans la liste
+    with open("SOWPODS.txt", 'r') as file:
+            lignes=file.readlines()
+            mot=choice(lignes).strip('\n')
+    return mot
+
+def affichage(word):
+    f=" ".join(word)
+
+    return f
+
+def getPosition(terme,lettre):
+    liste=[pos for pos,c in enumerate(terme) if lettre==c]   
+    return liste
+
+def replace(terme,liste,nouvelle_lettre):
+    for i in range(len(terme)):
+        if i in liste:
+            terme[i]=nouvelle_lettre
+    return "".join(terme)
+
+def deco(funct):
+    print("Bienvenue au ",funct.__name__)
+    return funct
+
+@deco    
+def Pendu():
+    lettre_devines=set()
+    jeu= True
+    while(jeu):
+        terme=mot()
+        n=6
+        mot_devine=['_' for car in terme]
+        mot_devine="".join(mot_devine)
+        while(mot_devine!=terme and n>0):
+            print(affichage(mot_devine))
+            lettre=input("Choisissez votre lettre\n")
+            if lettre in terme:
+                lettre_devines.add(lettre)
+                liste=getPosition(terme,lettre)
+                mot_devine=replace(list(mot_devine),liste,lettre)
+            else:
+                print("Incorrect")
+                n=n-1 #on decremente le nombres de chances
+                print("Encore ",n," echecs possibles")
+        jeu=input("Voulez-vous rejouer : O ou N\n")
+        if(jeu != "O"): #arrete le jeu lorsque une lettre autre que O est saisie
+            jeu=False
+    
+    print("Le mot etait",terme)   
+
+    
+Pendu()

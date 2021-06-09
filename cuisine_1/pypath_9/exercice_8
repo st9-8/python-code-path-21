@@ -1,0 +1,29 @@
+#Exercice 8
+
+ 
+clair=list("ABCDEFGHIJKLMNOPQRSTUVWXYZ") #alphabet clair
+cypher =list("XYZABCDEFGHIJKLMNOPQRSTUVW") #alphabet cypher
+        
+def encodage(text):
+    chiffrement=dict(zip(clair, cypher)) #creation d'un dictionnaire cle dans alphabet clair et valeur dans alphabet cypher
+    text=text.split() #text en liste
+    for elt in text:
+        elt=list(elt)
+        for i in range(len(elt)):
+            elt[i]=chiffrement[elt[i]]
+        elt="".join(elt) #recoller la liste
+        print(elt,end=" ")
+    
+def decodage(text):
+    dechiffrement=dict(zip(cypher, clair))#creation d'un dictionnaire cle dans alphabet cypher et valeur dans alphabet clair
+    text=text.split()
+    for elt in text:
+        elt=list(elt)
+        for i in range(len(elt)):
+            elt[i]=dechiffrement[elt[i]]
+        elt="".join(elt)
+        print(elt,end=" ")
+
+decodage("LE BON")
+encodage("LE BON")
+input('')
