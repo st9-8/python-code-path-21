@@ -1,5 +1,3 @@
-import random
-import csv
 
 def choixmot():
     with open("sowpods.txt")as f:
@@ -11,5 +9,5 @@ def choixmot():
         print ("\n Un mot a été choisi parmi la base de donnée\n")
     return motchoisi
 
-choixmot()
+
                          

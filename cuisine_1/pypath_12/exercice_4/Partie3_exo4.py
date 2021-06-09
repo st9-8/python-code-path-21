@@ -44,6 +44,25 @@ def motmasqué(motchoisi) : #fonction    pour le mot masqué et le nombre de vie
         
     if reponse!=str(motchoisi) and essais==0:                #si le mot n'est pas correct et que le nombre d'erreur est 0 
         print("Perdu le mot à trouver était","\'", motchoisi,"\'") #on affiche le bon mot et on dit a l'utilisateur qu'il n'a pas deviné le mot
+        pendu_final = r"""
+        --------------
+            |        |
+            |        |
+            |       / \
+            |       \_/
+            |      __|__
+            |        |
+            |        |
+            |       / \
+           /|\     /   \
+          / | \
+         /  |  \
+         ~~~~~~~~~~~~~~~~~~~~~
+         ~~~~~~~~~~~~~~~~~~~~~
+         ~~~~~~~~~~~~~~~~~~~~~
+                      """
+
+        print(pendu_final)
         revenir()
        
 

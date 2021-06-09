@@ -4,10 +4,6 @@ import colorama
 import csv
 import os.path
 
-
-
-def plateforme():
-    print('system:',platform.system)
     
 def moy(liste):
     try:
@@ -68,14 +64,12 @@ def mode(liste):
     #return(str(key_list))
 
 def ecart_type(liste):
-    try:
         y=math.sqrt(variance(liste))
-    else:
         return (y)
 
 def variance(liste):
     try:
-        dev=[(x-moyen(liste))**2
+        dev=[(x-moyen(liste))**2]
         variance = sum(deviation)/len(liste)       
     except ZeroDivisionError:
         print("la liste est vide")
@@ -98,39 +92,38 @@ def frequences(liste):
     return (freq)
 
 def effectifs_cumules(liste):
-       L=[]
-       somme_partielle=0
-       for x inn liste_effectifs:
-           somme_partielle+=x
-           L.append(somme_partielle)
-        return (L)
+    L=[]
+    somme_partielle=0
+    for x in liste_effectifs:
+        somme_partielle+=x
+        L.append(somme_partielle)
+    return (L)
 
 def frequences_cumules(liste):
-
-    return (freq_c)
+    pass
 
 def tableauFE(liste):
-    try:
-    else:
-        return (tableau)
+    pass
 
 
 def sauvegarder():
     f = open("resultat.txt",'w', encoding = 'utf-8')
-    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode"}:
+    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode",'variance','ecart_type','tableau des effectifs et frequences cumulés'}:
     
-    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\n")
+    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\t\tVariance\t\tEcart_type\t\tTableau des effectifs et frequences cumulés")
     
     moye = str(moy(liste))
     med = str(median(liste))
     maxi = str(max(liste))
     mini = str(min(liste))
     mod = str(mode(liste))
+    var=str(variance(liste))
+    ecartT=str(ecart_type(liste))
+    tab=tableauFE(liste)
     
-    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod)
-    
-       
-   
+    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod+ "\t\t" + var + "\t\t" + ecartT + "\t\t" +tab )
+
+      
 def afficher():
     try:
         f  = open("resultat.txt","r", encoding = "utf_8")
@@ -149,6 +142,7 @@ menu1['3']="Cholester"
 menu1['4']="Taux_Max"
 menu1['5']="quitter"
 
+menu={}
 menu['1']="Moyenne" 
 menu['2']="Médiane"
 menu['3']="premier quartile"
@@ -166,36 +160,34 @@ menu['14']="Quitter le programme"
 
  #--------lecture du fichier data_exo_7.txt
 try:
-    f = open("G:\essai\data_exo_7.txt","r", encoding = "utf_8")
+    f = open("data_exo_7.txt","r", encoding = "utf_8")
     print (f.read())
     f.close
 
 # --------le corps du programme
     user=os.getlogin()
     print(user)
-    plateforme()
+    print('BIENVENUE DANS VOTRE ANALYSEUR DE DONNEES')
+    print('*****************************************')
+    print('\n')
     
-    print("\n-----------------> veuillez choisir une des colonnes ci-dessous!!!!")
     while True:
         options = sorted(menu1.keys())
         for entry in options:
             print (entry, menu1[entry])
 
-        with open("G:\essai\data_ex0_7.txt","r", encoding = "utf_8") as infile, open("data_exo_7.csv",'w') as outfile:
+        with open("data_exo_7.txt","r", encoding = "utf_8") as infile, open("data_exo_7.csv",'w') as outfile:
             for line in infile:
                 outfile.write(line.replace('|',';'))
-        reader = pd.read_csv('data_exo_7.csv',  sep=';', encoding ="ISO-8859-1")
+        reader = pd.read_csv('data_exo_7.csv',sep=';', encoding ="ISO-8859-1")
         columns = reader.columns
 
-        #print(len(reader))
-        #print(reader[columns[0]][4])
         try:
-            choix = input("\n sur quelle parametre du premier menu souhaitez-vous travailler?:\n")
+            choix = input("\n sur quelle parametre du premier menu souhaitez-vous travailler?: ")
             liste = []
             if choix == "1":
                 for i in range(len(reader)):
                     liste.append(reader[columns[0]][i])
-                    plateforme()
         
             elif choix == "2":
                  for i in range(len(reader)):
@@ -209,19 +201,19 @@ try:
             elif choix == '5':
                 exit()
             else:
-                print("\n--------------->Entrer invalide choissez une bonne option svp\n")
+                print("\n--------------->Entrer invalide choissez une bonne option svp: ")
                 continue
         
             print("\n_*_*_*_*Les element de la colonne que vous avez choisi sont  *_*_*_*:\n ",liste)
-
-            print("\n Quelle opération souhaitez  vous effectuer  ?????????")
+            
+            print("\n ------------> Quelle opération souhaitez  vous effectuer  ?????????")
             while True:
                 options = sorted(menu.keys())
                 for entry in options:
                     print (entry, menu[entry])
 
                 try:
-                    selection=input("\n choisissez svp !!!!!!: \n ")
+                    selection=input("\n choisissez svp !!!!!!: ")
     
                     if selection =='1':
                         print ("\nLa moyenne du parametre " ,menu1[choix], " est: ", moy(liste))

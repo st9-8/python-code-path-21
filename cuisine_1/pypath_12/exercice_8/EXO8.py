@@ -7,8 +7,11 @@ import colorama
 def encodage():
     message=''
     for i in range(len(texte)):
-            A=texte[i]
+        A=texte[i]
+        if A!=' ':
             message+=chr((ord(A)+int(clé)-96)%26+96)
+        else:
+            message+=' ' 
     return print(message)
 
 #.........definir la fonction de décodage tenant compte de la table ASCII                
@@ -16,7 +19,10 @@ def decodage():
     message=''
     for i in range(len(texte)):   
             A=texte[i]
-            message+=chr((ord(A)+int(clé)-96)%26+96)
+            if A!=' ':
+                message+=chr((ord(A)+int(clé)-96)%26+96)
+            else:
+                message+=' ' 
     return print(message)
 
 
