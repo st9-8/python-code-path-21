@@ -18,6 +18,19 @@ def moy(liste):
     else:
         return (moyen)
 
+def median(liste):
+    try:
+        a = len(liste)
+        l= liste.sort()
+        if a%2 == 0:
+            med = ((liste[(a//2)+1] + liste[a//2])/2)
+        else:
+            med = liste[(a+1)//2]
+    except IndexError:
+        print("impossible de trouver la médiane")
+    else:
+        return (med)
+
 def Premier_quartile(liste):
     try:
         a = len(liste)
@@ -44,19 +57,15 @@ def troisieme_quartile(liste):
     else:
         return (Q3)
     
-
-def median(liste):
-    try:
-        a = len(liste)
-        l= liste.sort()
-        if a%2 == 0:
-            med = ((liste[(a//2)+1] + liste[a//2])/2)
-        else:
-            med = liste[(a+1)//2]
-    except IndexError:
-        print("impossible de trouver la médiane")
-    else:
-        return (med)
+def mode(liste):
+    dic = {}
+    for i in liste:
+        dic[i] = liste.count(i)
+    for k, val in dic.items():
+         if val == max(dic.values()):
+             return (k)
+        
+    #return(str(key_list))
 
 def ecart_type(liste):
     try:
@@ -110,30 +119,24 @@ def tableauFE(liste):
         return (tableau)
 
 
-def mode(liste):
-    dic = {}
-    for i in liste:
-        dic[i] = liste.count(i)
-    for k, val in dic.items():
-         if val == max(dic.values()):
-             return (k)
-        
-    #return(str(key_list))
-
-
 def sauvegarder():
+    def sauvegarder():
     f = open("resultat.txt",'w', encoding = 'utf-8')
-    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode"}:
+    #for i in {"Moyenne","Médiane","Maximum","Minimum","Mode",'variance','ecart_type','tableau des effectifs et frequences cumulés'}:
     
-    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\n")
+    f.write("Moyenne\t\tMédiane\t\tMaximum\t\tMinimum\t\tMode\t\tVariance\t\tEcart_type\t\tTableau des effectifs et frequences cumulés")
     
     moye = str(moy(liste))
     med = str(median(liste))
     maxi = str(max(liste))
     mini = str(min(liste))
     mod = str(mode(liste))
+    var=str(variance(liste))
+    ecartT=str(ecart_type(liste))
+    tab=tableauFE(liste)
     
-    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod)
+    f.write(moye + "\t\t" + med + "\t\t" + maxi + "\t\t" +mini + "\t\t" + mod+ "\t\t" + var + "\t\t" + ecartT + "\t\t" +tab )
+    
     
        
    
@@ -150,13 +153,11 @@ def afficher():
 
 menu1 = {}
 menu1['1']="Age" 
-menu1['2']="Salaire(k)"
-menu1['3']="Année d\'expérience"
-menu1['4']="Projets réalisés"
-menu1['5']="Précédentes entreprise"
-menu1['6']="quitter"
+menu1['2']="Pression"
+menu1['3']="Cholester"
+menu1['4']="Taux_Max"
+menu1['5']="quitter"
 
-menu = {}
 menu['1']="Moyenne" 
 menu['2']="Médiane"
 menu['3']="premier quartile"
@@ -172,9 +173,9 @@ menu['12']="Sauvegarder tous"
 menu['13']="Afficher tous"
 menu['14']="Quitter le programme"
 
- #--------lecture du fichier data.txt
+ #--------lecture du fichier data_exo_7.txt
 try:
-    f = open("G:\essai\data.txt","r", encoding = "utf_8")
+    f = open("G:\essai\data_exo_7.txt","r", encoding = "utf_8")
     print (f.read())
     f.close
 
@@ -183,22 +184,22 @@ try:
     print(user)
     plateforme()
     
-    print("\n Veillez choisir une des colonnes ci-dessous!!!!")
+    print("\n-----------------> veuillez choisir une des colonnes ci-dessous!!!!")
     while True:
         options = sorted(menu1.keys())
         for entry in options:
             print (entry, menu1[entry])
 
-        with open("G:\essai\data.txt","r", encoding = "utf_8") as infile, open("data.csv",'w') as outfile:
+        with open("G:\essai\data_ex0_7.txt","r", encoding = "utf_8") as infile, open("data_exo_7.csv",'w') as outfile:
             for line in infile:
                 outfile.write(line.replace('|',';'))
-        reader = pd.read_csv('data.csv',  sep=';', encoding ="ISO-8859-1")
+        reader = pd.read_csv('data_exo_7.csv',  sep=';', encoding ="ISO-8859-1")
         columns = reader.columns
 
         #print(len(reader))
         #print(reader[columns[0]][4])
         try:
-            choix = input("\nsur quelle colonne souhaitez-vous travailler?:\n")
+            choix = input("\n sur quelle parametre du premier menu souhaitez-vous travailler?:\n")
             liste = []
             if choix == "1":
                 for i in range(len(reader)):
@@ -214,19 +215,15 @@ try:
             elif choix == "4":
                 for i in range(len(reader)):
                     liste.append(reader[columns[3]][i])
-            elif choix == "5":
-                for i in range(len(reader)):
-                    liste.append(reader[columns[4]][i])
-            elif choix == '6':
+            elif choix == '5':
                 exit()
-                break
             else:
-                print("\nentrée invalide choissez une bonne option svp\n")
+                print("\n--------------->Entrer invalide choissez une bonne option svp\n")
                 continue
         
-            print("\n_*_*_*_* les element de la colonne que vous avez choisi sont  *_*_*_*:\n ",liste)
+            print("\n_*_*_*_*Les element de la colonne que vous avez choisi sont  *_*_*_*:\n ",liste)
 
-            print("\nquelle opération souhaitez  vous effectuer  ?????????")
+            print("\n Quelle opération souhaitez  vous effectuer  ?????????")
             while True:
                 options = sorted(menu.keys())
                 for entry in options:
@@ -235,15 +232,14 @@ try:
                 try:
                     selection=input("\n choisissez svp !!!!!!: \n ")
     
-    
                     if selection =='1':
-                        print ("\nLa moyenne de la colonne " ,menu1[choix], " est: ", moy(liste))
+                        print ("\nLa moyenne du parametre " ,menu1[choix], " est: ", moy(liste))
                     elif selection =='2':
-                        print ("\nLa mediane de la colonne " ,menu1[choix], " est: ", median(liste))
+                        print ("\nLa mediane du parametre  " ,menu1[choix], " est: ", median(liste))
                     elif selection =='3':
-                        print ("\nLe premier quartile de la colonne " ,menu1[choix], " est: ", premier_quartile(liste))
+                        print ("\nLe premier quartile du parametre  " ,menu1[choix], " est: ", premier_quartile(liste))
                     elif selection =='4':
-                        print ("\nLa troisieme quartile de la colonne " ,menu1[choix], " est: ", troisieme_quartile(liste))
+                        print ("\nLa troisieme quartile du parametre  " ,menu1[choix], " est: ", troisieme_quartile(liste))
                     elif selection == '5':
                         print ("\nLe maximum ", menu1[choix]," est: ", max(liste))
                     elif selection == '6':
@@ -251,13 +247,13 @@ try:
                     elif selection =='7':
                         print ("\nLe mode ", menu1[choix], " est: ", mode(liste))
                     elif selection =='8':
-                        print ("\nL'ecart-type de la colonne " ,menu1[choix], " est: ", ecart_type())
+                        print ("\nL'ecart-type du parametre  " ,menu1[choix], " est: ", ecart_type())
                     elif selection =='9':
-                        print ("\nLa variance de la colonne " ,menu1[choix], " est: ", variance()) 
+                        print ("\nLa variance du parametre  " ,menu1[choix], " est: ", variance()) 
                     elif selection == '10': 
                         print ("\nLe coefficient de Pearson de la colone ", menu1[choix], " est: ", coefficient_pearson())
                     elif selection == '11':
-                        print ("\nle tableau des effectifs et des frequences cumulé ")
+                        print ("\nLe tableau des effectifs et des frequences cumulé ")
                         tableauFE()
                     elif selection == '12':
                         sauvegarder()
@@ -265,11 +261,10 @@ try:
                     elif selection == '13':
                         print ("\nVisualisation des caractéristique de: \n", menu1[choix])     
                         afficher()
-                        break
+                        break   
                     elif selection == '14':
                         sauvegarder()
                         print("vos resultats ont été enregistrer dans le fichier resultat.txt de votre repertoire courant, merci!!!")
-                        exit()
                         break
                     else: 
                         print ("option inconnu selection l'une des option sus-citées!\n" )
@@ -284,3 +279,4 @@ try:
 except IOError:
     print("!!!!!!! fichier introuvable ")
 #os.system("pause")
+
