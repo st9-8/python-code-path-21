@@ -6,7 +6,7 @@ def traitement(chaine):
     accent = ['é', 'è', 'ê', 'à', 'ù', 'û', 'ç', 'ô', 'î', 'ï', 'â',' ']
     sans_accent = ['e', 'e', 'e', 'a', 'u', 'u', 'c', 'o', 'i', 'i', 'a',' ']
     for i in range(len(accent)):
-        chaine = str(chaine).lower().replace(accent[i], sans_accent[i])
+        chaine = str(chaine).replace(accent[i], sans_accent[i])
     return chaine
 
 
@@ -37,7 +37,7 @@ print(encodage_cesar("QEB NRFZH YOLTK CLU GRJMP LSBO QEB IXWV ALD", 3))    #test
 
 def decodage_cesar(phrase, d ):
 
-    """ idem que la focntion d'encodage à un detail près. ici on effectue plutot un décalage vers la gauche"""
+    """ idem que la focntion d'encodage à un detail près. ici on effectue plutôt un décalage vers la gauche"""
     
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     
