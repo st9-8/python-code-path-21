@@ -12,8 +12,8 @@ def choix():
              
             choix =  random.choice(lines)    # on effectue un choix aléatoire
             #print(choix)
-            
+        return(choix)                        # puis on retourne le choix
     except IOError:
         print("!!!!!!! fichier introuvable ")
 
-    return(choix)                        # puis on retourne le choix 
+     

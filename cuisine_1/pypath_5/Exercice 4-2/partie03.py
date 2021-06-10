@@ -3,33 +3,33 @@ def choix():
     '''cette fonction nous permet de choisir un mot au hazard dans une liste\
      de mot contenu dans un fichier'''
 
-    with open("sowpods.txt","r") as file:
+    try:
+        with open("sowpods.txt","r") as file:
         
-        lines = file.readlines()    # on lit toutes les lignes du fichier
+            lines = file.readlines()    # on lit toutes les lignes du fichier
         
-        lines = [line.rstrip() for line in lines]  #on supprimme le séparateur de ligne avec rstip     
+            lines = [line.rstrip() for line in lines]  # on supprimme le séparateur de ligne avec rstip     
              
-        choix =  random.choice(lines)    #on effectue un choix aléatoire
-        #print(choix)
+            choix =  random.choice(lines)    # on effectue un choix aléatoire
+            #print(choix)
+        return(choix)                        # puis on retourne le choix
+    except IOError:
+        print("!!!!!!! fichier introuvable ")
 
-    return(choix)                        # puis on retourne le choix 
 
-
-
-#import os
 
 #def deviner_mot():
-while input("\nvoulez vous jouer? (y/n): ") != "n":
+while input("\n voulez vous jouer? (y/n): ") != "n":
     
     """ dans cette section, on demande à l'utilisateur  d'essayer de deviner\
     tant qu'il veut encore jouer """
     
-    #os.system('cls')        # on efface l'ecran
+    
      
     mot = choix()          # notre mot à déviner
-    mot1 = mot
+    mot1 = mot              # ça nous permettra de devoiler le mot à la fin d'une partie si le joueur a perdu
         
-    print("\n Bienvenu au jeu du pendu")
+    print("\n Bienvenu au jeu du pendu ")
 
     affichage = [ "_" for caracter in mot]    #  initialiament on ajoute autant de  (_) qu'il y a de caractère dans le mot
     
@@ -37,13 +37,13 @@ while input("\nvoulez vous jouer? (y/n): ") != "n":
     lettres_incorrectes = []             # trace des lettres dévinées incorrectes
 
     longueur = len(mot)
-    tentatives = 6
+    tentatives = 6                    # nbre d'échec maximal
     
-    while (longueur  > 0 and tentatives > 0):                                   # tant que le mot n'est pas vide et le nombre  maximum de tentative n'est pas atteint
+    while (longueur  > 0 and tentatives > 0):                  # tant que le mot n'est pas vide et le nombre  maximum de tentative n'est pas atteint
 
-        print( "\n mot à déviner: "," ".join(affichage))
+        print( "\n mot à déviner: "," ".join(affichage))       # on affiche le mot à déviné masqué par des "_"
         
-        proposition = input("\n dévinez votre lettre: ")                      # demande à l'utilisateur d'entrer sa proposition de lettre
+        proposition = input("\n dévinez votre lettre: ")                    # demande à l'utilisateur d'entrer sa proposition de lettre
         proposition = proposition.upper()                                   # on converti en majuscule
         
         if proposition in mot:                                                # si sa propositon est correcte
@@ -59,21 +59,20 @@ while input("\nvoulez vous jouer? (y/n): ") != "n":
                 mot = mot.replace(proposition,'$')     # on enleve la lettre bien devinée du mot
                 longueur -= 1                          # la longueur diminue
                 #print(mot)
-                
-                
+                   
                 
         else:
-            if proposition in lettres_incorrectes:          # sinon on verifie si la propositon a deja été faite
+            if proposition in lettres_incorrectes:          # sinon on verifie si la propositon a déjà été faite
 
-                print( " \n cette lettre a déjà été déviné et classé incorrecte essayez un autre\n")
+                print( " \n cette lettre a déjà été dévinée et classée incorrecte essayez un autre\n")   # on ne le penalise pas
                 
             else:               # sinon
 
                 lettres_incorrectes.append(proposition)     # on ajoute la lettre à la trace des lettres incorretes
 
-                tentatives -= 1                             #  ensuite on décremente la longueur de notre mot
+                tentatives -= 1                             #  il perd une tentativ
 
-                # dessin pour nombre de tentatives restantes
+                # dessin pour le nombre de tentatives restantes
                 
                 print("\n lettre incorrecte!!!!!\n")
                 if tentatives==0:
