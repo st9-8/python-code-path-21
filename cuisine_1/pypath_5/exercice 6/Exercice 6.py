@@ -1,6 +1,6 @@
 def decorateur(fonction):
-    """ cette fonction permet d'effectuer la mise en forme sur les numeros de telelphone \
-    trier ie ajouter le prefixe +237 6 au numero xxxxxxxx puis met le resultat dans un fichier text"""
+    """ cette fonction permet d'effectuer la mise en forme sur les numéros de téléphone \
+    triés ie ajouter le prefixe +237 6 au numero xxxxxxxx puis met le resultat dans un fichier text"""
     
     def decore(liste):
         ma_liste = fonction(liste)
@@ -29,11 +29,11 @@ def trier(liste):
         
         longueur = len(numero)
         
-        if longueur >= 8:                                     # si la longueur est superieur a 8
+        if longueur >= 8:                                     # si la longueur est superieur à 8
            
             numero_reduit = ''
             
-            for j in range(longueur-1,longueur-9,-1):          # on reduit le numéro en concervant uniquement les 8 derniers chiffres
+            for j in range(longueur-1,longueur-9,-1):          # on réduit le numéro en concervant uniquement les 8 derniers chiffres
 
                 numero_reduit = numero[j] + numero_reduit
                 
