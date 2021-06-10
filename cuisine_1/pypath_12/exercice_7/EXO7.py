@@ -1,9 +1,9 @@
 encoding = 'utf-8'
-import pandas as pd
-import colorama
 import csv
 import os.path
-
+import colorama
+import platform
+import pandas as pd
     
 def moy(liste):
     try:
@@ -165,8 +165,10 @@ try:
     f.close
 
 # --------le corps du programme
-    user=os.getlogin()
-    print(user)
+    user=os.getlogin()           #affiche le nom de l'utilisateur dans le systeme qui execute le programme
+    print("\n L'administrateur de ce PC est: ",user)
+    print("\n Vous travaillez sur un systeme: ",platform.system())              #affiche le systeme sur lequel on focntionne
+    print('\n')
     print('BIENVENUE DANS VOTRE ANALYSEUR DE DONNEES')
     print('*****************************************')
     print('\n')
@@ -176,15 +178,11 @@ try:
         for entry in options:
             print (entry, menu1[entry])
 
-        with open("data_exo_7.txt","r", encoding = "utf_8") as infile, open("data_exo_7.csv",'w') as outfile:
-            for line in infile:
-                outfile.write(line.replace('|',';'))
-        reader = pd.read_csv('data_exo_7.csv',sep=';', encoding ="ISO-8859-1")
-        columns = reader.columns
-
         try:
             choix = input("\n sur quelle parametre du premier menu souhaitez-vous travailler?: ")
             liste = []
+            sortie=pandas.read_csv('data_exo_7.csv',usecols=[(choix)])
+            print(sortie)
             if choix == "1":
                 for i in range(len(reader)):
                     liste.append(reader[columns[0]][i])
