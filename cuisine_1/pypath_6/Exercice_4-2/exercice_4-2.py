@@ -56,7 +56,7 @@ def try_again():
             print("Thank you!")
 
         else:
-            ans= input ("entrer 1 ou 2")
+            ans= input("entrer 1 ou 2")
 
 deviner()
 
