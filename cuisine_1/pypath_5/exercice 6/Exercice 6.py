@@ -1,20 +1,19 @@
 def decorateur(fonction):
-    
     """ cette fonction permet d'effectuer la mise en forme sur les numeros de telelphone \
     trier ie ajouter le prefixe +237 6 au numero xxxxxxxx puis met le resultat dans un fichier text"""
-
+    
     def decore(liste):
         ma_liste = fonction(liste)
+        # on effectue la mise en forme sur les numéros
         nouvel_liste = []
         for numero in ma_liste:
             nouvel_liste.append("+237 6"+numero)
-        
+
+        # ensuite on ecrit le resultat dans un fichier
     
         with open("data6.txt",'w') as fichier:
             for numero in nouvel_liste:
-                fichier.write(numero + "\n")
-
-              
+                fichier.write(numero + "\n")   
             
     return decore
 
@@ -51,7 +50,7 @@ def trier(liste):
 # Dans le bloc qui suit, on recupere les donnees du fichier (les numeros de telephone qui sont le fichier) dans une liste puis on appelle la fonction trier avec
 
 try:
-    f = open("E:\python-code-path\cuisines\exercice 6\data_exo_6.txt", encoding = "utf_8")
+    f = open("data_exo_6.txt", "r", encoding = "utf_8")
     fichier = f.read().split('\n')
     ma_liste = []
     for ligne in fichier:
@@ -65,9 +64,9 @@ trier(ma_liste)
 
  # lecture du fichier contenant les numéros triés et mis en forme
  
-f = open("E:\python-code-path\cuisines\exercice 6\data6.txt","r", encoding = "utf_8")
-        print(f.read())
-        f.close
+f = open("data6.txt","r", encoding = "utf_8")
+print(f.read())
+f.close
 
 
 
