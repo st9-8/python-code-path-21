@@ -15,7 +15,7 @@ def traitement(chaine):
         chaine = str(chaine).lower().replace(accent[i], sans_accent[i])
     return chaine
 
-#  menus
+# nos  menus
 
 menu = {}
 menu['1']="Moyenne"
@@ -27,10 +27,11 @@ menu['6']="troisième quartile"
 menu['7']="Maximum"
 menu['8']="Minimum"
 menu['9']="Mode"
-menu['10']="statistiques"
-menu['11']="Sauvegarder tous"
-menu['12']="Afficher tous"
-menu['Q ou 0']="Quitter le programme"
+menu ['10'] = " Coefficient de Pearson entre age et pression"
+menu['11']="statistiques"
+menu['12']="Sauvegarder tous"
+menu['13']="Afficher tous"
+menu['Q']="Quitter le programme"
 
 def readFile(column):
     """ cette fonction lit un fichier et recupère les valuers de la colonne désirée\
@@ -54,9 +55,15 @@ def readFile(column):
                     #desired_column_data.append(column)
                 elif k == index:
                     desired_column_data.append(line[k])
-    #if index == -1:
-        #print('cette colonne n\'existe pas')
-    return desired_column_data
+                    
+    ## le resultat precedent est une liste de chaine de caractere, on convertit ces valeurs en entier pour pouvoir effectuer nos opération
+    desired_column_data_int = []                
+    for j in range(len(desired_column_data)):
+            desired_column_data_int.append((int(desired_column_data[j])))                
+    return desired_column_data_int
+
+
+
 
 # On recupere l'entete de notre fichier puis on traite
     
@@ -69,12 +76,15 @@ with open('data_exo_7.txt','r') as file:
         header.append(traitement(line[i]))
         #print(header)
         
+
 def readFileAll():
     ''' cette fonction recupere les valeurs de toutes les colonnes de notre fichier, on va l'utiliser pour notre sauvegarde '''
     liste = []
     for column in header:
         liste.append(readFile(column))
         
+    # on converti les valeur en entier vu que le resultat précédent est un tableau de chaine de caractere
+    
     column_int = []                
     for i in liste:
         column_int1 = []
@@ -94,14 +104,8 @@ while column != "0":
         
             column = traitement(column)    # on appel la fonction traitement() qui permet de mettre en minuscule et supprimer les accents
 
-            result = readFile(column)      # on appel la fonction ReadFile() qui permet de recuperer les valeurs de l colonne entrée par l'utilisateur
+            column_int = readFile(column)      # on appel la fonction ReadFile() qui permet de recuperer les valeurs de l colonne entrée par l'utilisateur
 
-            # le resultat precedent est une liiste de chaine de caractere, on convertit ces valeurs en entier pour pouvoir effectuer nos opération
-        
-            column_int = []                
-            for i in range(len(result)):
-                column_int.append(int(result[i]))
-            print(column_int)
     
 
             print("\n Quelle opération souhaitez vous effectuer?\n".center(50))
@@ -110,8 +114,8 @@ while column != "0":
             
                 #options = sorted(menu.keys())
             
-                for entry in menu.keys():
-                    print (entry, menu[entry])         # on affiche le menu
+                for cle in menu.keys():
+                    print (cle, menu[cle])         # on affiche le menu
 
                 # en fonction du choix de l'utilisateur, on effectue une opération. fontions_exercice7 est notre module contenant les fonctions
 
@@ -144,21 +148,27 @@ while column != "0":
                         
                     elif selection == '9':
                         print ("Le mode de ", column, " est: ", fontions_exercice7.mode(column_int))
-
+                        
                     elif selection == '10':
+                        with open('data_exo_7.txt','r') as file:   
+                            liste_age = readFile('age')  # on recupere les elements de age
+                            liste_pression = readFile('pression') #on recupere les valeurs de pression
+                        print ("La corrélation entre age et pression est: ", fontions_exercice7.coefficient_pearson(liste_age,liste_pression))
+
+                    elif selection == '11':
                         print(" Statistiques de la colonne",column,"\n")
                         fontions_exercice7.statistique(column_int,column)
 
-                    elif selection == '11':
+                    elif selection == '12':
                         liste = readFileAll()                            
                         fontions_exercice7.sauvegarder(liste,header)
                         print("\n données sauvegardées".center(50))
 
-                    elif selection == '12':
+                    elif selection == '13':
                         print("visualisation\n")
                         fontions_exercice7.afficher()
 
-                    elif (selection == '0') or(selection == 'Q') :
+                    elif (selection == 'Q') :
                         fontions_exercice7.sauvegarder(readFileAll() ,header)                   
                         print("vos resultats ont été enregistrer dans le fichier resultat.csv de votre repertoire courant, merci!!!")
                         break
@@ -167,7 +177,7 @@ while column != "0":
                         print ("option inconnu selection l'une des option sus-citées!\n" )
 
                 except KeyboardInterrupt:
-                    print("pour quitter le programme , appuyer sur 0 ou Q")
+                    print("pour quitter le programme , appuyer sur  Q")
 
         elif column != '0':
             print("cette colonne n'existe pas")

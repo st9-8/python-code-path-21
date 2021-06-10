@@ -41,6 +41,31 @@ def ecart_type(liste):
     except ZeroDivisionError:
         print("la liste est vide")
 
+        
+def coefficient_pearson(liste1,liste2):
+    '''Le coefficient r de Bravais-Pearson entre deux listes  se calcule en appliquant la formule suivante:
+    covariance(liste1,liste2)/ecart_type(liste1)*ecart_type(liste)2 '''
+    try:
+        '''calcul de la covariance'''
+        # on calcul la moyenne et l'ecart type des deux listes
+        moy1 = moyenne(liste1)
+        moy2 = moyenne(liste2)
+        ecart1 = ecart_type(liste1)
+        ecart2 = ecart_type(liste2)
+    
+        somme = 0
+        for i in range(len(liste1)):
+            somme += (liste1[i]-moy1)*(liste2[i]-moy2)  #chaque element de la premier liste moins la moyenne multiplié par chaque element de la seconde liste moins la moyenne
+            covariance = somme / len(liste1)         # la variance c'est la somme précédente divisée par la taille de la liste
+    
+        ''' corrélation'''
+        correlation = covariance /(ecart1*ecart2)
+        return round(correlation,3)
+    
+    except ZeroDivisionError:
+        print("la liste est vide")
+
+        
 def mediane(liste):
     
     """ cette fonction calcule la médiane d'une colonne qui est l'élement au juste\
@@ -177,6 +202,8 @@ def frequence_cumuler(liste):
         j += liste[i]
 
     return freq_cumul
+
+
        
 def statistique (liste,colonne):
 
@@ -192,10 +219,10 @@ def statistique (liste,colonne):
     freq_cumul = frequence_cumuler(liste)     # calcul des frequences cumulés
 
     liste.sort()
-    liste = list(set(liste))                  # supprimer les doublons dans la liste avant l'affichage car les effectifs on deja été calculé
+    liste = list(set(liste))                  # supprimer les doublons dans la liste avant l'affichage car les effectifs on deja été calculés
+
     
     # on cree notre tableau qui est une liste de liste contenant tous les element calculés plus haut
-
     result = []
     result.append([(elt) for elt in liste])    
     result.append([(elt) for elt in eff])
@@ -203,6 +230,8 @@ def statistique (liste,colonne):
     result.append([(elt) for elt in freq])
     result.append([(elt) for elt in freq_cumul])
     #print(result)
+    
+    # on ajoute les noms en premiere position de chaque ligne dans notre tableau precedent
     a = dict()
     a[0] = "liste            "
     a[1] = "effectifs        "
@@ -211,7 +240,7 @@ def statistique (liste,colonne):
     a[4] = "frequence cumulés"
     #print(a)
     for k,v in a.items():
-        result[k].insert(0,a[k])           # pour ajouter les noms en premiere position
+        result[k].insert(0,a[k])          
         
     # on affiche le tableau crée précédemment
             
@@ -243,7 +272,7 @@ def statistique (liste,colonne):
  
    
 def sauvegarder(liste,column):
-    """ce bloc permet de sauvegarder dans une fichier toutes les caracteristique descriptives telles\
+    """ce bloc permet de sauvegarder dans une fichier toutes les caracteristiques descriptives telles\
      que la moyenne etc... de toutes colonne"""
 
     """ elle prend deux  parametres; la 1ere est une liste de liste c'est a dire une liste contenant \
@@ -256,7 +285,7 @@ def sauvegarder(liste,column):
         #print(column)
         writer.writerow(column)         
 
-         # on calcule pour chaque colonne ses caracteristiques que l'on met dans une liste avec un nom spécifique tel que le moyenne
+         # on calcule pour chaque colonne ses caracteristiques que l'on met dans une liste avec un nom spécifique tel que la moyenne
          
         moye = ["moyenne"]
         med = ["mediane"]

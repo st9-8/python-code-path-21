@@ -1,0 +1,20 @@
+caracteristique                    age                    pression                    cholester                    taux_max
+
+moyenne                    54.93                    128.85                    248.69                    145.65
+
+mediane                    57.0                    128.0                    240.5                    148.5
+
+variance                    85.01                    227.1                    3461.03                    522.85
+
+ecart type                    9.22                    15.07                    58.83                    22.87
+
+premier quartile                    47                    120                    209                    129
+
+troisieme quartile                    62                    140                    273                    163
+
+maximum                    74                    160                    564                    186
+
+minimum                    35                    100                    126                    96
+
+mode                    [57, 58]                    [120]                    [197, 198, 208, 211, 226, 234, 243, 244, 245, 256, 261, 303]                    [142]
+
