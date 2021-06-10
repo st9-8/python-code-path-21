@@ -9,22 +9,25 @@ def moyenne(liste):
 
     try:
         moyen = sum(liste)/len(liste)
-        return round(moyen,2)                  # round(x,n) permet de retreindre le nombre de chiffre pares la virgule. dans notre cas, on affiche 2
+        return round(moyen,2)                  # round(x,n) permet de retreindre le nombre de chiffre après la virgule. dans notre cas, on affiche 2
+
     except ZeroDivisionError:
         print("la liste est vide")
         
 
 def variance (liste):
     
-    """ la variance d'une liste c'est la moyenne des carrés mois le carré de la moyenne"""
+    """ la variance d'une liste c'est la moyenne des carrés moins le carré de la moyenne"""
     try:
-        m=moyenne(liste)
-        var=0
+        m = moyenne(liste)
+        var = 0
         
         for k in range(len(liste)):
         
             var += (liste[k]-m)**2
-            variance = var/len(liste)
+
+        variance = var/len(liste)
+
         return round(variance,2)
 
     except ZeroDivisionError:
@@ -33,11 +36,12 @@ def variance (liste):
 
 def ecart_type(liste):
     
-    """ calcul de l'ecart tytype d'une liste qui est la racine carré de la variance """
+    """ calcul de l'ecart type d'une liste qui est la racine carré de la variance """
     try:
         v = variance(liste)
         ecart = v ** (0.5)
         return round(ecart,2)
+
     except ZeroDivisionError:
         print("la liste est vide")
 
@@ -45,6 +49,7 @@ def ecart_type(liste):
 def coefficient_pearson(liste1,liste2):
     '''Le coefficient r de Bravais-Pearson entre deux listes  se calcule en appliquant la formule suivante:
     covariance(liste1,liste2)/ecart_type(liste1)*ecart_type(liste)2 '''
+
     try:
         '''calcul de la covariance'''
         # on calcul la moyenne et l'ecart type des deux listes
@@ -56,7 +61,8 @@ def coefficient_pearson(liste1,liste2):
         somme = 0
         for i in range(len(liste1)):
             somme += (liste1[i]-moy1)*(liste2[i]-moy2)  #chaque element de la premier liste moins la moyenne multiplié par chaque element de la seconde liste moins la moyenne
-            covariance = somme / len(liste1)         # la variance c'est la somme précédente divisée par la taille de la liste
+
+        covariance = somme / len(liste1)         # la variance c'est la somme précédente divisée par la taille de la liste
     
         ''' corrélation'''
         correlation = covariance /(ecart1*ecart2)
@@ -68,17 +74,18 @@ def coefficient_pearson(liste1,liste2):
         
 def mediane(liste):
     
-    """ cette fonction calcule la médiane d'une colonne qui est l'élement au juste\
+    """ cette fonction calcule la médiane d'une colonne qui est l'élément au juste\
     milieu de la liste triée """
 
     try:
         a = len(liste)
-        liste.sort()                                # on trie la liste
-        if a%2 == 0:                                # test si la longeur est pair
-            med = (liste[(a-1)//2] + liste[a//2])/2 # la mediane sera la moyenne des élément qui sépare au mieu la colonne
-        else:                                       # sinon
-            med = liste[(a-1)//2]                   # la médiane sera l'élément au milieu
+        liste.sort()                                 # on trie la liste
+        if a%2 == 0:                                 # test si la longeur est pair
+            med = (liste[(a-1)//2] + liste[a//2])/2  # la mediane sera la moyenne des élément qui sépare au mieu la colonne
+        else:                                        # sinon
+            med = liste[(a-1)//2]                    # la médiane sera l'élément au milieu
         return med
+
     except IndexError:
         print("impossible de trouver la médiane")
     
@@ -86,8 +93,8 @@ def mediane(liste):
     
 def premier_quartile(liste):
     
-    """ cette fonction calcule le premier quartile d'une colonne qui est l'élement\
-    separant les 25% de la liste triée """
+    """ cette fonction calcule le premier quartile d'une colonne qui est l'élément\
+    séparant les 25% de la liste triée """
 
     try:
         a = len(liste)
@@ -97,14 +104,15 @@ def premier_quartile(liste):
         else:                                       #sinon
             quartile1 = liste[(a//4)]               # on prend l'élément à la positon a/4 + 1 d'indice a/4
         return quartile1
+
     except IndexError:
         print("impossible de trouver la médiane")
 
 
 def troisieme_quartile(liste):
     
-    """ cette fonction calcule le troisieme quartile d'une colonne qui est l'élement\
-    separant les 75% de la liste triée """
+    """ cette fonction calcule le troisieme quartile d'une colonne qui est l'élément\
+    séparant les 75% de la liste triée """
 
     try:
         a = len(liste)
@@ -129,6 +137,7 @@ def maximum(liste):
             if liste[i] > maxi:
                 maxi = liste[i]
         return maxi
+
     except IndexError:
         print("liste vide")
 
@@ -142,6 +151,7 @@ def minimum(liste):
             if liste[i] < mini:
                 mini = liste[i]
         return mini
+
     except IndexError:
         print("liste vide")
 
@@ -179,7 +189,7 @@ def effectif_cumuler(liste):
 
 def frequence(liste):
     
-    """ ce bloc calcul les frequences des element d'une liste """
+    """ ce bloc calcul les fréquences des élément d'une liste """
     
     liste = effectif(liste)                 # on calcul d'abord les effectifs
     #print(sum(liste))
@@ -224,7 +234,7 @@ def statistique (liste,colonne):
     
     # on cree notre tableau qui est une liste de liste contenant tous les element calculés plus haut
     result = []
-    result.append([(elt) for elt in liste])    
+    result.append([elt for elt in liste])    
     result.append([(elt) for elt in eff])
     result.append([(elt) for elt in eff_cumul])
     result.append([(elt) for elt in freq])
@@ -233,7 +243,7 @@ def statistique (liste,colonne):
     
     # on ajoute les noms en premiere position de chaque ligne dans notre tableau precedent
     a = dict()
-    a[0] = "liste            "
+    a[0] = colonne+" ".ljust(len("frequence cumulés")-len(colonne))
     a[1] = "effectifs        "
     a[2] = "effectifs cumulés"
     a[3] = "frequences       "
@@ -276,26 +286,26 @@ def sauvegarder(liste,column):
      que la moyenne etc... de toutes colonne"""
 
     """ elle prend deux  parametres; la 1ere est une liste de liste c'est a dire une liste contenant \
-     la liste de toutes nos colonnes, et la se seconde une liste contenant le nom des colonnes """
+     la liste de toutes nos colonnes, et la seconde une liste contenant le nom des colonnes """
 
     with open("resultat.csv",'w') as file:
         writer = csv.writer(file, delimiter = ';', quotechar = '|')
         #print(column)
-        column.insert(0,"caracteristique")      # entete de notre fichier
+        column.insert(0,"colonne   ")      # entete de notre fichier
         #print(column)
         writer.writerow(column)         
 
          # on calcule pour chaque colonne ses caracteristiques que l'on met dans une liste avec un nom spécifique tel que la moyenne
          
-        moye = ["moyenne"]
-        med = ["mediane"]
-        var = ["variance"]
-        ecart = ["ecart type"]
-        premier = ["premier quartile"]
-        troisieme = ["troisieme quartile"]
-        maxi = ["maximum"]
-        mini =["minimum"]
-        mod = ["mode"]
+        moye      = ["moyenne     "]
+        med       = ["mediane     "]
+        var       = ["variance    "]
+        ecart     = ["ecart type  "]
+        premier   = ["1er quartile"]
+        troisieme = ["3e quartile "]
+        maxi      = ["maximum     "]
+        mini      = ["minimum     "]
+        mod       = ["mode        "]
         
         for i in range(len(liste)):
             moye.append((moyenne(liste[i])))
@@ -316,12 +326,12 @@ def sauvegarder(liste,column):
 
 
 def afficher():
-    """ ici, on lit le contenu de notre fichier et l'affiche à l'ecran """
+    """ ici, on lit le contenu de notre fichier et l'affiche à l'écran """
     
     try:
         with open("resultat.csv",'r') as infile, open("resultat.txt",'w') as outfile:
             for line in infile:
-                outfile.write((line.replace(';',' '.ljust(20))))
+                outfile.write(line.replace(';',' '.ljust(15)))
                 
         with open("resultat.txt",'r') as outfile:
             print(outfile.read())

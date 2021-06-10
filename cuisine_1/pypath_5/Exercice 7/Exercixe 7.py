@@ -6,7 +6,7 @@ def plateforme():
     print("bienvenue: ", platform.uname(),"\n system :", platform.system(), "\n")
 
 def traitement(chaine):
-    """ cette focntion nous permettra de traiter les informations entreés par l'utilisateur"""
+    """ cette focntion nous permettra de traiter les informations entrées par l'utilisateur """
     
     accent = ['é', 'è', 'ê', 'à', 'ù', 'û', 'ç', 'ô', 'î', 'ï', 'â',' ']
     sans_accent = ['e', 'e', 'e', 'a', 'u', 'u', 'c', 'o', 'i', 'i', 'a','']
@@ -27,11 +27,11 @@ menu['6']="troisième quartile"
 menu['7']="Maximum"
 menu['8']="Minimum"
 menu['9']="Mode"
-menu ['10'] = " Coefficient de Pearson entre age et pression"
+menu['10'] = "Coefficient de Pearson entre age et pression"
 menu['11']="statistiques"
 menu['12']="Sauvegarder tous"
 menu['13']="Afficher tous"
-menu['Q']="Quitter le programme"
+menu['Q ou 0']="Quitter le programme"
 
 def readFile(column):
     """ cette fonction lit un fichier et recupère les valuers de la colonne désirée\
@@ -65,11 +65,11 @@ def readFile(column):
 
 
 
-# On recupere l'entete de notre fichier puis on traite
+# On recupere l'entête de notre fichier puis on traite
     
 with open('data_exo_7.txt','r') as file:
     lines = file.readline().rstrip()         # on lit la premier ligne en supprimant le séparateur de ligne
-    line = lines.split('\t')                 # on supprime le separateur de colonne on obtient une liste
+    line = lines.split('\t')                 # on supprime le séparateur de colonne on obtient une liste
     #print(line)
     header = []                             # notre entete
     for i in range(len(line)):
@@ -78,33 +78,25 @@ with open('data_exo_7.txt','r') as file:
         
 
 def readFileAll():
-    ''' cette fonction recupere les valeurs de toutes les colonnes de notre fichier, on va l'utiliser pour notre sauvegarde '''
+    ''' cette fonction récupère les valeurs de toutes les colonnes de notre fichier, on va l'utiliser pour notre sauvegarde '''
     liste = []
     for column in header:
         liste.append(readFile(column))
         
-    # on converti les valeur en entier vu que le resultat précédent est un tableau de chaine de caractere
-    
-    column_int = []                
-    for i in liste:
-        column_int1 = []
-        for j in range(len(i)):
-            column_int1.append(int(i[j]))
-        column_int.append(column_int1)
-    return column_int
+    return liste
   
 plateforme()
 column = 0
 while column != "0":
     try:
-        column = input("\n Entrez le nom de la colonne sur laquelle vous souhaitez traivailler ou 0 si vous ne desirez rien: ")
+        column = input("\n Entrez le nom de la colonne sur laquelle vous souhaitez travailler ou 0 si vous ne desirez rien: ")
 
                    
-        if column in header:         # verifie si la colonne entrée par lutilisateur existe dans le fichier
+        if column in header:                 # verifie si la colonne entrée par lutilisateur existe dans le fichier
         
-            column = traitement(column)    # on appel la fonction traitement() qui permet de mettre en minuscule et supprimer les accents
+            column = traitement(column)      # on appel la fonction traitement() qui permet de mettre en minuscule et supprimer les accents
 
-            column_int = readFile(column)      # on appel la fonction ReadFile() qui permet de recuperer les valeurs de l colonne entrée par l'utilisateur
+            column_int = readFile(column)    # on appel la fonction ReadFile() qui permet de recuperer les valeurs de la colonne entrée par l'utilisateur
 
     
 
@@ -120,56 +112,56 @@ while column != "0":
                 # en fonction du choix de l'utilisateur, on effectue une opération. fontions_exercice7 est notre module contenant les fonctions
 
                 try:
-                    selection=input(" votre choix svp: ".center(50))
+                    selection=input(" \n votre choix svp: ".center(50))
                     
                     if selection =='1':
-                        print ("La moyenne de la colonne " ,column, " est: ", fontions_exercice7.moyenne(column_int))
+                        print ("\nLa moyenne de la colonne " ,column, " est: ", fontions_exercice7.moyenne(column_int))
                         
                     elif selection == '2': 
-                        print ("La variance de la colonne ", column, " est: ", fontions_exercice7.variance(column_int))
+                        print ("\nLa variance de la colonne ", column, " est: ", fontions_exercice7.variance(column_int))
                         
                     elif selection == '3': 
-                        print ("L'écart type de la colone ", column, " est: ", fontions_exercice7.ecart_type(column_int))
+                        print ("\nL'écart type de la colone ", column, " est: ", fontions_exercice7.ecart_type(column_int))
                         
                     elif selection == '4': 
-                        print ("La médiane de la colone ", column, " est: ", fontions_exercice7.mediane(column_int))
+                        print ("\nLa médiane de la colone ", column, " est: ", fontions_exercice7.mediane(column_int))
                         
                     elif selection == '5': 
-                        print ("Le premier quartile de la colone ", column, " est: ", fontions_exercice7.premier_quartile(column_int))
+                        print ("\nLe premier quartile de la colone ", column, " est: ", fontions_exercice7.premier_quartile(column_int))
                         
                     elif selection == '6': 
-                        print ("Le troisieme quartile de la colone ", column, " est: ", fontions_exercice7.troisieme_quartile(column_int))
+                        print ("\nLe troisieme quartile de la colone ", column, " est: ", fontions_exercice7.troisieme_quartile(column_int))
                         
                     elif selection == '7':
-                        print (" Le maximum de ", column," est: ", fontions_exercice7.maximum(column_int))
+                        print (" \nLe maximum de ", column," est: ", fontions_exercice7.maximum(column_int))
                         
                     elif selection == '8':
-                        print ("Le minimum de ", column," est: ", fontions_exercice7.minimum(column_int))
+                        print ("\nLe minimum de ", column," est: ", fontions_exercice7.minimum(column_int))
                         
                     elif selection == '9':
-                        print ("Le mode de ", column, " est: ", fontions_exercice7.mode(column_int))
+                        print ("\nLe mode de ", column, " est: ", fontions_exercice7.mode(column_int))
                         
-                    elif selection == '10':
-                        with open('data_exo_7.txt','r') as file:   
-                            liste_age = readFile('age')  # on recupere les elements de age
-                            liste_pression = readFile('pression') #on recupere les valeurs de pression
-                        print ("La corrélation entre age et pression est: ", fontions_exercice7.coefficient_pearson(liste_age,liste_pression))
+                    elif selection == '10':  
+                        liste_age = readFile('age')            # on recupere les elements de age
+                        liste_pression = readFile('pression')  # on recupere les valeurs de pression
+                        print ("\nLa corrélation entre age et pression est: ", fontions_exercice7.coefficient_pearson(liste_age,liste_pression))
 
                     elif selection == '11':
-                        print(" Statistiques de la colonne",column,"\n")
+                        print("\nStatistiques de la colonne",column,"\n")
                         fontions_exercice7.statistique(column_int,column)
 
                     elif selection == '12':
                         liste = readFileAll()                            
                         fontions_exercice7.sauvegarder(liste,header)
-                        print("\n données sauvegardées".center(50))
+                        print("\n données sauvegardées".center(100))
 
                     elif selection == '13':
-                        print("visualisation\n")
+                        print("\nvisualisation\n".center(100))
                         fontions_exercice7.afficher()
 
-                    elif (selection == 'Q') :
-                        fontions_exercice7.sauvegarder(readFileAll() ,header)                   
+                    elif (selection == 'Q'or selection == '0') :
+                        liste = readFileAll()
+                        fontions_exercice7.sauvegarder(liste ,header)                   
                         print("vos resultats ont été enregistrer dans le fichier resultat.csv de votre repertoire courant, merci!!!")
                         break
 
@@ -177,16 +169,16 @@ while column != "0":
                         print ("option inconnu selection l'une des option sus-citées!\n" )
 
                 except KeyboardInterrupt:
-                    print("pour quitter le programme , appuyer sur  Q")
+                    print("\npour quitter le programme , appuyer sur  Q ou 0")
 
         elif column != '0':
-            print("cette colonne n'existe pas")
+            print("\ncette colonne n'existe pas")
             continue
         else:
-            print("merci pour votre attention")
+            print("\nmerci pour votre attention")
             
     except KeyboardInterrupt:
-        print("pour quitter le programme , appuyer sur 0 ")
+        print("\npour quitter le programme , appuyer sur 0 ")
         
 
                         
