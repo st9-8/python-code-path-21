@@ -124,7 +124,23 @@ def Mode(l):
         i= i-1
         
     return max
-
+    
+def pearson(liste_x, liste_y): #calcul du coefficient de Pearson
+    
+    mean_x = Moyenne(liste_x)
+    mean_y = Moyenne(liste_y)
+    std_x=sigma(liste_x) ** 0.5 #ecart_type
+    std_y=sigma(liste_y) ** 0.5
+    sub_x = [i - mean_x for i in liste_x] #soustraire la moyenne
+    sub_y = [i - mean_y for i in liste_y]
+    numerator = sum([sub_x[i]*sub_y[i] for i in range(len(sub_x))])
+    denominator = len(liste_x)-1
+    cov = numerator/denominator
+    pearson=cov/std_x*std_y
+    return pearson
+    
+ 
+    
 def Quartile(liste,n):
     x=len(liste)
     if x%4 == 0:
@@ -136,7 +152,7 @@ def sigma(liste): #calcule de la variance
     var=0
     moy=Moyenne(liste)
     for i in range(len(liste)):
-        var=var+(liste[i]-m)**2
+        var=var+(liste[i]-moy) ** 2
     var=var/i
     return var
     
@@ -172,7 +188,7 @@ def save(): #Sauvegarder tous
 
 
 def choix(liste,valeur,dicto):
-    val= input("\n\nQuelle operation voulez vous effectuer? \n 1: Calculer la moyenne\n 2: Calculer la médiane \n 3: Calculer le maximum \n 4: Calculer le minimum \n 5: Calculer le mode\n 6: Calculer le premier quartile\n 7:Calculer le troisieme quartile\n 8: Calculer la variance\n 9:Calculer l\'ecart type\n 10: Tableau de frequence \n 11: Sauvegarder tous \n 12: Afficher tous \n 13:Quitter \n")
+    val= input("\n\nQuelle operation voulez vous effectuer? \n 1: Calculer la moyenne\n 2: Calculer la médiane \n 3: Calculer le maximum \n 4: Calculer le minimum \n 5: Calculer le mode\n 6: Calculer le premier quartile\n 7: Calculer le troisieme quartile\n 8: Calculer la variance\n 9: Calculer l\'ecart type\n 10: Tableau de frequence\n 11: Coefficient de Pearson avec Age \n 12: Coefficient de Pearson avec Pression \n 13: Sauvegarder tous \n 14: Afficher tous \n 15: Quitter \n")
     val=int(val)
     
     if (val == 1):
@@ -204,7 +220,7 @@ def choix(liste,valeur,dicto):
          return " Variance de  la colonne {} := {}".format(valeur,sigma(liste))
         
     elif (val== 9):
-         return "Ecart type de  la colonne {} := {}".format(valeur,sigma(liste)**(0.5))
+         return "Ecart type de  la colonne {} := {}".format(valeur,sigma(liste)**0.5)
         
     elif (val==10):
         L=[["Valeur"],["Effectif Cumule"],["Effectif"],["Frequence"],["Frequence Cumule"]]
@@ -221,12 +237,18 @@ def choix(liste,valeur,dicto):
                     else:
                         print("%.3f "%elt,end="\t")
                 print()
+                
+    elif (val== 11):
+         return "Coefficient de Pearson de Age avec la colonne {} := {}".format(valeur,pearson(age,liste))
         
-    elif(val==11):
+    elif (val== 12):
+         return "Coefficient de Pearson de Pression avec la colonne {} := {}".format(valeur,pearson(pression,liste))
+            
+    elif(val==13):
         return save()
                
         
-    elif(val==12):
+    elif(val==14):
         
         with open("tous.txt",'r') as tous:
             y=[]
@@ -240,7 +262,7 @@ def choix(liste,valeur,dicto):
                 print()
         return("Reussi") 
         
-    elif(val==13):
+    elif(val==15):
         if (saved == False): # si pas encore sauvegarde
             save()
         time.sleep(3)
@@ -296,21 +318,26 @@ def tp():
         global dicto
         dicto =toDict()
         x=0
+        global age
+        global pression
+        age=creerliste(1)
+        pression=creerliste(2)
+
         while(x!=8):
             print("\n\nLes colonnes sont :")
             ecrire(dicto)
             valeur= input("Quelle colonne voulez vous traiter? Bien vouloir ecrire le nom en toutes lettres\n")
             x=dicto[valeur]+1
             try:
-                while(x!=13): #tant qu'il ne veut pas quitter
+                while(x!=15): #tant qu'il ne veut pas quitter
                     tl=creerliste(x)
                     print(choix(tl,valeur,dicto))
                 
             except KeyboardInterrupt:
-                print("Entrer 13 pour quitter") 
+                print("Entrer 15 pour quitter") 
                 continue
     except KeyboardInterrupt:
-        print("Entrer 13 pour quitter")  
+        print("Entrer 15 pour quitter")  
     else:
         return("Fin")
-    
+tp()
