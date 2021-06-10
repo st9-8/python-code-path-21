@@ -8,4 +8,4 @@ def comprehension_liste(x,y,z,n):
     print(ma_liste)
 
 
-comprehension_liste(1,1,2,3)  #test
+print(comprehension_liste(1,1,2,3))  #test
