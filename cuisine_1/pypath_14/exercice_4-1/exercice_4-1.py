@@ -1,4 +1,7 @@
 def pretty_printing(fonction):
+    """
+        ce decorateur permert de mettre le  texte en gras en italique et barre
+    """
 
     def inner(text,g=False,i=False,b=False):
         deco=""
@@ -11,6 +14,7 @@ def pretty_printing(fonction):
         deco =  text.join([deco, deco[::-1]])
         print(deco)
 
+
        
 
     return inner
@@ -18,8 +22,7 @@ def pretty_printing(fonction):
 
 @pretty_printing
 def style(text ,g=False, i=False, b=False):
-    print(text)
+    return text
 
-
-style("leandra", i=True,g=True,b=True)
+style("python", i=True,g=True,b=True)
 

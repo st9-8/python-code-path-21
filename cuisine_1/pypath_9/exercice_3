@@ -8,7 +8,7 @@ def PierreFeuilleCiseau():
     flag= flag or (choixJoueur== "Feuille" and choixJeu=="Pierre") # renvoie true si le troisieme cas de reussite fonctionne
     print("Mon choix ",choixJeu)
     
-    def Jeu():
+def Jeu():
     score=0
     jouer="O" # jeu en cours
     while(jouer=="O"):
