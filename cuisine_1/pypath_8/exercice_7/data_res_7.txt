@@ -1,0 +1,1 @@
+*Colonne* moyenne mediane minimum maximum premier_quartile troisieme_quartile variance mode
