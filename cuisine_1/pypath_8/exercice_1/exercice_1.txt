@@ -1,0 +1,33 @@
+Question->1: Explication du schema
+
+Le compilateur verifie la syntaxe du code source
+Bytecode est un code python comprehensible par la machine virtuelle(CPython ecrit en C) python.pyc le code
+est compris par lui.
+
+Le dossier pycache contient une version compile de mon code source(bytecode). Si mon code a deja ete execute,
+python vient chercher le fichier .pyc sinon on recompile mon fichier pour avoir le .pyc avant d'executer.
+Question->2 
+
+Variable locale
+Une variable est dite locale lorsqu'elle est créée dans une fonction. Elle n’est visible
+et n’existera que lors de l’éxécution de la fonction.
+
+Variable globale
+Une variable est dite globale lorsqu’elle est créée dans le programme principal.
+Elle sera visible partout dans le programme.
+
+Question->3: decorateur
+
+def isListeVide(func):
+    "verifie si une liste est vide"
+    return func
+
+@isListeVide
+def moyenneListe(l=[]):
+    "calcule la moyenne des elements de la liste"
+    pass
+
+Question->4: Git et Github
+
+Git est un logiciel de gestion de versions decentralise.
+Github est une platforme de gestion de projets et qui utilise git.
