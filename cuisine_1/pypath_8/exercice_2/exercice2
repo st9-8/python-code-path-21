@@ -1,0 +1,32 @@
+#commment reagi l'interpreteur python
+
+1- str(2021) * int("3")
+.convertir 2021 en une chaine de caratere "2021"
+.convertir "3" en un entier 3
+.renvoyer une chaine de caractere qui contient une sucession de trois 2021
+
+2- int("3") + float("3.2")
+.convertir "3" en un entier et "3.2" en un float
+.additionner les deux valeurs
+.renvoyer un float
+
+3- int("3,98") + float("3.2")
+.renvoyer un erreur car "3,98" ne peut pas etre converti en int
+
+4- int("3.9") + float("3,2")
+.renvoyer une erreur car "3.9" ne peut pas etre converti en int
+
+5- str(3) * float("3.2")
+.convertir 3 en une chaine de caractere "3"
+.convertir "3.2" en un float 3.2
+.renvoyer une erreur car impossible de multiplier "3" par 3.2
+
+6- str(3/4) * 2
+.convertir 3/4 en une chaine de caractere '3/4'
+.renvoyer une chaine qui contient 2 fois '3/4'
+
+7- "SEED" + ["innovation", "hub"]
+.additionner "SEED" et "innovation", "hub"] mais va renvoyer une erreur car impossible de concatener une chaine de caractere a une liste
+
+8- "SEED" + str(["innovation", "hub"])
+.convertir ["innovation", "hub"] en chaine de caractere puis concatener "SEED" a "["innovation", "hub"]"
