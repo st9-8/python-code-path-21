@@ -29,9 +29,8 @@ def deco(funct):  # decorateur
     return funct
 
 @deco    
-def Pendu():
+def Pendu(terme):
     lettre_devines=set() # l'ensemble des lettres trouvees
-    terme=mot()
     mot_devine=['_' for car in terme]
     mot_devine="".join(mot_devine)
     while(mot_devine!=terme):
@@ -47,4 +46,4 @@ def Pendu():
             
 
     
-Pendu()
+Pendu("TERME")
